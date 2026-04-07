@@ -24,15 +24,15 @@ void selection_sort(int *array, size_t size)
 		{
 			if (array[dedex] < array[lil_index])
 			{
-    			lil_index = dedex;
-			}	
+				lil_index = dedex;
+			}
 		}
 		if (lil_index != index)
 		{
-    		temp = array[index];
-    		array[index] = array[lil_index];
-    		array[lil_index] = temp;
-  		  	print_array(array, size);
+			temp = array[index];
+			array[index] = array[lil_index];
+			array[lil_index] = temp;
+			print_array(array, size);
 		}
 	}
 }
