@@ -8,15 +8,16 @@
 
 void swap_int(int *a, int *b)
 {
-	int tmp;
-
-	tmp = *a;
-	*a = *b;
-	*b = tmp;
+	if (*a != *b)
+	{
+		int tmp = *a;
+		*a = *b;
+		*b = tmp;
+	}
 }
 
 /**
- * lomuto_partition - Lomuto partition scheme for quicksort
+ * lomuto_partition - Lomuto partition for quicksort
  * @array: array to sort
  * @low: start index
  * @high: end index
@@ -35,12 +36,18 @@ int lomuto_partition(int *array, int low, int high, size_t size)
 		if (array[j] <= pivot)
 		{
 			i++;
-			swap_int(&array[i], &array[j]);
-			print_array(array, size);
+			if (i != j)
+			{
+				swap_int(&array[i], &array[j]);
+				print_array(array, size);
+			}
 		}
 	}
-	swap_int(&array[i + 1], &array[high]);
-	print_array(array, size);
+	if (i + 1 != high)
+	{
+		swap_int(&array[i + 1], &array[high]);
+		print_array(array, size);
+	}
 	return (i + 1);
 }
 
@@ -54,11 +61,10 @@ int lomuto_partition(int *array, int low, int high, size_t size)
 
 void quick_sort_recursive(int *array, int low, int high, size_t size)
 {
-	int pi;
-
 	if (low < high)
 	{
-		pi = lomuto_partition(array, low, high, size);
+		int pi = lomuto_partition(array, low, high, size);
+
 		quick_sort_recursive(array, low, pi - 1, size);
 		quick_sort_recursive(array, pi + 1, high, size);
 	}
