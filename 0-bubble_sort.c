@@ -2,20 +2,20 @@
 
 void bubble_sort(int *array, size_t size)
 {
-    int verificator;
-    int index;
+    size_t verificator;
+    size_t index;
     int temp;
 
     if (array == NULL || size < 2)
     {
-        return (NULL);
+        return;
     }
 
     for (verificator = 0; verificator < size - 1; verificator++)
     {
         for (index = 0; index < size - 1 - verificator; index++)
         {
-            if (array[verificator] > array[verificator + 1])
+            if (array[index] > array[index + 1])
             {
                 temp = array[index];
                 array[index] = array[index + 1];
