@@ -7,7 +7,7 @@
 
 void insertion_sort_list(listint_t **list)
 {
-	listint_t *current, *insert, *tmp;
+	listint_t *current, *key;
 
 	if (!list || !*list || !(*list)->next)
 		return;
@@ -16,30 +16,30 @@ void insertion_sort_list(listint_t **list)
 
 	while (current)
 	{
-		insert = current;
-		tmp = current->next;
+		key = current;
+		current = current->next;
 
-		while (insert->prev && insert->n < insert->prev->n)
+		while (key->prev && key->n < key->prev->n)
 		{
-			listint_t *prev = insert->prev;
+			listint_t *prev = key->prev;
+
+			/* Detach key */
+			prev->next = key->next;
+			if (key->next)
+				key->next->prev = prev;
+
+			/* Insert key before prev */
+			key->prev = prev->prev;
+			key->next = prev;
 
 			if (prev->prev)
-				prev->prev->next = insert;
-			insert->prev = prev->prev;
+				prev->prev->next = key;
+			else
+				*list = key;
 
-			prev->next = insert->next;
-			if (insert->next)
-				insert->next->prev = prev;
-
-			insert->next = prev;
-			prev->prev = insert;
-
-			if (!insert->prev)
-				*list = insert;
+			prev->prev = key;
 
 			print_list(*list);
 		}
-
-		current = tmp;
 	}
 }
